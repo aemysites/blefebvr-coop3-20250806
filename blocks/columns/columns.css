@@ -31,3 +31,130 @@
     order: unset;
   }
 }
+
+
+.columns.columns4 > div {
+  display: flex;
+  flex-direction: row;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #f5f5f5;
+  min-height: 0;
+}
+
+@media (width <= 900px) {
+  .columns.columns4 > div {
+    flex-direction: column;
+    border-radius: 0;
+  }
+}
+
+/* Left column: image fills height and width */
+.columns.columns4 .columns-img-col {
+  flex: 0 1 48%;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  background: #fff;
+  min-width: 0;
+  min-height: 0;
+}
+
+.columns.columns4 .columns-img-col picture,
+.columns.columns4 .columns-img-col img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* Right column: top-aligned, less top padding, tighter gap */
+.columns.columns4 .columns-img-col + div {
+  flex: 0 1 52%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background: #f5f5f5;
+  padding: 20px 40px 40px;
+  border-radius: 0 22px 22px 0;
+  min-width: 0;
+  min-height: 0;
+}
+
+@media (width <= 900px) {
+  .columns.columns4 .columns-img-col + div {
+    padding: 20px 16px 24px;
+    border-radius: 0;
+  }
+}
+
+.columns.columns4 .columns-img-col + div h3 {
+  color: #222;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 6px;
+  line-height: 1.2;
+}
+
+.columns.columns4 .columns-img-col + div p:not(.button-container) {
+  color: #888;
+  font-size: 1rem;
+  margin: 0 0 4px;
+  line-height: 1.6;
+}
+
+.columns.columns4 .columns-img-col + div .button-container {
+  margin: 0;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0;
+}
+
+.columns.columns4 .columns-img-col + div .button-container .button {
+  background: #f90;
+  color: #fff;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 20px 36px 20px 26px;
+  box-shadow: none;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.2;
+  margin: 0;
+  min-width: 0;
+  text-decoration: none;
+  text-align: center;
+  gap: 14px;
+}
+
+.columns.columns4 .columns-img-col + div .button-container .button:hover,
+.columns.columns4 .columns-img-col + div .button-container .button:focus {
+  background: #d78200;
+  color: #fff;
+  text-decoration: none;
+}
+
+.columns.columns4 .columns-img-col + div .button-container .button::after {
+  width: 16px;
+  height: 16px;
+  margin-left: 0;
+  vertical-align: middle;
+  background: url('data:image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 18 18" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M6.71 13.29a1 1 0 010-1.42L9.58 9 6.71 6.13a1 1 0 111.42-1.42l3.29 3.29a1 1 0 010 1.42l-3.29 3.29a1 1 0 01-1.42 0z"></path></svg>') no-repeat center center;
+  background-size: 16px 16px;
+  display: inline-block;
+  content: "";
+}
+
+.columns.columns4 .columns-img-col + div .button-container .button:focus {
+  outline: none;
+}
+
+.columns.columns4 .columns-img-col + div p:last-child:not(.button-container) {
+  margin-bottom: 0;
+}
