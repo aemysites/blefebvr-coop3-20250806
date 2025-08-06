@@ -1,6 +1,6 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const cells = [ ['Cards'] ];
+  const cells = [ ['Cards (cards3)'] ];
 
   // Select all direct columns (cards)
   const row = element.querySelector('.row-flex.row-flex-wrap');

@@ -8,6 +8,8 @@ export default function parse(element, { document }) {
     if (picture) heroImageEl = picture;
   }
 
+  console.log('heroImageEl', heroImageEl);
+
   // Attempt to find the main heading and sub-elements for hero text
   // We'll consider only direct children after nav and .SR_002_Auftrittsheader
   let textContentBlock = '';
@@ -33,9 +35,9 @@ export default function parse(element, { document }) {
   }
 
   const cells = [
-    ['Hero'], // Header row, must match example exactly
+    ['Hero (hero2)'], // Header row, must match example exactly
     [heroImageEl || ''],
-    [textContentBlock || '']
+    ['']
   ];
   const table = WebImporter.DOMUtils.createTable(cells, document);
   element.replaceWith(table);
