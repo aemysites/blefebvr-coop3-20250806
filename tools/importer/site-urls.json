@@ -1,0 +1,17 @@
+{
+  "originUrl": "https://www.coop.ch",
+  "urls": [
+    {
+      "url": "https://www.coop.ch/de/unternehmen/ueber-uns.html",
+      "source": "MANUAL",
+      "targetPath": "/de/unternehmen/ueber-uns",
+      "id": "d7995deb366ec4ae6db011e469195a39c7bdc302"
+    }
+  ],
+  "crawlOptions": {
+    "strategy": "manual",
+    "strategiesAttempted": [
+      "MANUAL"
+    ]
+  }
+}
