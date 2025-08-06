@@ -25,3 +25,136 @@
   aspect-ratio: 4 / 3;
   object-fit: cover;
 }
+
+
+.cards.cards3 {
+  max-width: 540px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  /* Remove vertical centering so the block sits at the top */
+  display: block;
+  min-height: unset;
+}
+
+.cards.cards3 > ul {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.cards.cards3 > ul > li {
+  background: #fff;
+  border: none;
+  border-bottom: 3px solid #FFB74D;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  height: auto; /* Let the content set the height */
+}
+
+.cards.cards3 .cards-card-image {
+  width: 100%;
+  line-height: 0;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.cards.cards3 .cards-card-image img {
+  width: 100%;
+  height: 76px;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+  margin: 0;
+  background: #eee;
+}
+
+.cards.cards3 .cards-card-body {
+  background: #F5F5F5;
+  margin: 0;
+  padding: 10px 14px 16px 14px;
+  font-size: 13px;
+  color: #666;
+  line-height: 1.36;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  min-height: 60px;
+  box-sizing: border-box;
+}
+
+.cards.cards3 .cards-card-body p {
+  margin: 0;
+  font-size: 13px;
+  color: #666;
+  font-weight: 400;
+  line-height: 1.36;
+}
+
+.cards.cards3 .cards-card-body p strong {
+  display: inline-block;
+  font-size: 15px;
+  color: #222;
+  font-weight: bold;
+  margin-bottom: 2px;
+  vertical-align: middle;
+  line-height: 1.2;
+  position: relative;
+  padding-left: 0;
+}
+
+.cards.cards3 > ul > li:nth-child(2) .cards-card-body p strong {
+  padding-left: 14px;
+}
+
+.cards.cards3 > ul > li:nth-child(2) .cards-card-body p strong:before {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 48%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  background: #FFB74D;
+  border-radius: 2px;
+}
+
+.cards.cards3 .cards-card-body::after {
+  display: block;
+  position: absolute;
+  right: 14px;
+  bottom: 8px;
+  width: 20px;
+  height: 20px;
+  background: #FF9800;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+  background-image: url("data:image/svg+xml;utf8,<svg width='11' height='11' xmlns='http://www.w3.org/2000/svg'><polygon points='3,2 8,5.5 3,9' fill='white'/></svg>");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 11px 11px;
+  pointer-events: none;
+  content: "";
+}
+
+@media (max-width: 799px) {
+  .cards.cards3 {
+    max-width: 98vw;
+  }
+  .cards.cards3 > ul {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .cards.cards3 .cards-card-image img {
+    height: 54px;
+  }
+}
