@@ -1,20 +1,22 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Get all immediate .footer-col children representing columns
-  const columns = Array.from(element.querySelectorAll(':scope > div.footer-col'));
+  // Get all columns: immediate children with .footer-col
+  const columns = Array.from(element.querySelectorAll(':scope > .footer-col'));
 
-  // For each column, find the <ul.footer-nav.footer-linklist> (should be just one per column)
-  const colCells = columns.map(col => {
-    const ul = col.querySelector('ul.footer-nav.footer-linklist');
-    return ul || document.createTextNode('');
-  });
+  // If there are no columns, do not replace; fail gracefully
+  if (!columns.length) return;
 
-  // Build the table: header is a single cell, then one row with all columns
-  const cells = [
-    ['Columns (columns8)'],
-    colCells
-  ];
+  // The header row must be a single cell (one column), matching the markdown example exactly
+  const headerRow = ['Columns (columns8)'];
+  // The content row is one cell per column
+  const contentRow = columns;
 
-  const table = WebImporter.DOMUtils.createTable(cells, document);
-  element.replaceWith(table);
+  // Table data: single header, then content row with one cell per column
+  const tableData = [headerRow, contentRow];
+
+  // Create the columns block table
+  const block = WebImporter.DOMUtils.createTable(tableData, document);
+
+  // Replace the original element with the new table
+  element.replaceWith(block);
 }

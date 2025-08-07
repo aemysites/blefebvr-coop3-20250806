@@ -1,44 +1,56 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Get the hero image (the .SR_002_Auftrittsheader picture element)
-  let heroImageEl = '';
-  const auftrittsheader = element.querySelector('.SR_002_Auftrittsheader');
-  if (auftrittsheader) {
-    const picture = auftrittsheader.querySelector('picture');
-    if (picture) heroImageEl = picture;
+  // 1. Extract the hero image (background image)
+  let heroPicture = '';
+  const heroImgDiv = element.querySelector('.SR_002_Auftrittsheader');
+  if (heroImgDiv) {
+    const pic = heroImgDiv.querySelector('picture');
+    if (pic) heroPicture = pic;
   }
 
-  console.log('heroImageEl', heroImageEl);
+  // 2. Extract hero text content (headline, subheading, etc)
+  // The hero text is usually immediately after the header (the nav/header image), most likely in the next sibling
+  // We'll try to find all h1-h6 and p elements in the next sibling after the hero image
+  let textContentElements = [];
+  let textContainer = null;
+  if (heroImgDiv && heroImgDiv.nextElementSibling) {
+    textContainer = heroImgDiv.nextElementSibling;
+  } else if (element.nextElementSibling) {
+    textContainer = element.nextElementSibling;
+  }
 
-  // Attempt to find the main heading and sub-elements for hero text
-  // We'll consider only direct children after nav and .SR_002_Auftrittsheader
-  let textContentBlock = '';
-  // Get all direct children of <header>, ignore nav and .SR_002_Auftrittsheader
-  const directChildren = Array.from(element.children).filter(child =>
-    !child.matches('nav') && !child.classList.contains('SR_002_Auftrittsheader')
-  );
-  // Find the first element that contains heading/text
-  for (const child of directChildren) {
-    // If it contains an h1 or h2 or text node with visible text, use as content block
-    if (
-      child.querySelector('h1, h2, h3, h4, h5, h6, p') ||
-      (child.textContent && child.textContent.trim().length > 0)
-    ) {
-      textContentBlock = child;
-      break;
+  if (textContainer) {
+    // Only include visible elements that are headings or paragraphs (not nav, not unrelated content)
+    textContentElements = Array.from(textContainer.querySelectorAll('h1, h2, h3, h4, h5, h6, p'));
+    // If the container itself is a heading or paragraph, include it (e.g. <h1>...</h1> alone)
+    if ((/H[1-6]|P/).test(textContainer.tagName)) {
+      textContentElements.unshift(textContainer);
+    }
+    // Remove duplicates
+    textContentElements = Array.from(new Set(textContentElements));
+  }
+
+  // As fallback, try searching globally for the first block under <main> (or document.body) with headings/paragraphs
+  if (textContentElements.length === 0) {
+    const main = document.querySelector('main') || document.body;
+    const allCandidates = Array.from(main.children);
+    for (let i = 0; i < allCandidates.length; i++) {
+      const block = allCandidates[i];
+      const found = block.querySelectorAll ? block.querySelectorAll('h1, h2, h3, h4, h5, h6, p') : [];
+      if (found && found.length > 0) {
+        textContentElements = Array.from(found);
+        break;
+      }
     }
   }
-  // If nothing found, as fallback look for first heading in header
-  if (!textContentBlock) {
-    const heading = element.querySelector('h1, h2, h3, h4, h5, h6');
-    if (heading) textContentBlock = heading;
-  }
 
+  // Clean up: only pass non-empty values (cell must contain at least an empty string for structure)
   const cells = [
-    ['Hero (hero2)'], // Header row, must match example exactly
-    [heroImageEl || ''],
-    ['']
+    ['Hero'],
+    [heroPicture || ''],
+    [textContentElements.length > 0 ? textContentElements : '']
   ];
+
   const table = WebImporter.DOMUtils.createTable(cells, document);
   element.replaceWith(table);
 }

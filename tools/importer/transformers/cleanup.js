@@ -45,10 +45,6 @@ export default function transform(hookName, element) {
       'style',
       'script',
       'noscript',
-      'aside',
-      'footer',
-      'nav#offcanvas',
-      'div#modal-GS-013-video',
     ]);
   }
   if (hookName === TransformHook.afterTransform) {
